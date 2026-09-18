@@ -150,12 +150,22 @@ Cada VLAN activa constituye un dominio de broadcast independiente, delimitado po
 | 59 | VISITANTES | 1 | SW-CorpA (puerto del Access Point) |
 
 ## 11. Evidencia de pruebas
-
+![Configuracion tree ](./imagenes/CONFTREESERVER.png)
+![Digrama del proyecto ](./imagenes/CONFTREESERVERDiagrama proyecto 1.png)
 ### 11.1 `show spanning-tree`
-Ver sección 7.
+![Spanning Tree SW-CORE (VLAN 1, 19, 29)](./imagenes/SPANNINGTREE_CORE.png)
+![Spanning Tree SW-CORE (VLAN 39, 49, 59)](./imagenes/SPANNINGTREE_CORE2.png)
+![Spanning Tree SW-SERV (VLAN 1, 19, 29)](./imagenes/SPANNINGTREE_SERV.png)
+![Spanning Tree SW-SERV (VLAN 39, 49, 59)](./imagenes/SPANNINGTREE_SERV2.png)
+![Spanning Tree SW-SERV (VLAN 39, 49, 59)](./imagenes/SPANNINGTREE_SW-IyD1.png)
+![Spanning Tree SW-SERV (VLAN 39, 49, 59)](./imagenes/SPANNINGTREE_SW-IyD1_2.png)
+![Spanning Tree SW-SERV (VLAN 39, 49, 59)](./imagenes/SPANNINGTREE_SW-Prod.png)
 
 ### 11.2 `show etherchannel summary`
-Ver sección 6.
+![EtherChannel SW-CORE](./imagenes/SUMMARY-CORE.png)
+![EtherChannel SW-CORE detalle](./imagenes/swcore.png)
+![EtherChannel SW-SERV](./imagenes/SWSERVER.png)
+![EtherChannel SW-IyD1](./imagenes/SWIyD1.png)
 
 ### 11.3 `show interfaces trunk`
 
