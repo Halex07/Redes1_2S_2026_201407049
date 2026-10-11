@@ -1,0 +1,54 @@
+! ======================================================
+! SW-Z3  (2960-24TT, VTP SERVIDOR, root bridge VLAN 39 (Cardales de Cayala))
+! Carne 201407949 | VTP dominio 201407949 | EtherChannel: PAgP
+! PUERTOS USADOS:
+!   Fa0/1    -> CORE-A Fa0/5
+!   Fa0/2-4  -> PC1-Z3, PC2-Z3, Laptop1
+! ======================================================
+
+!------------------------------------------------------
+! FASE 1 - 
+!------------------------------------------------------
+enable
+configure terminal
+hostname SW-Z3
+no ip domain-lookup
+vtp version 2
+vtp domain 201407949
+vtp password Cayala2026
+vtp mode server
+spanning-tree mode rapid-pvst
+interface fastEthernet0/1
+ switchport mode trunk
+ switchport trunk native vlan 99
+ exit
+end
+write memory
+
+!------------------------------------------------------
+! FASE 3 - (show vlan brief)
+!------------------------------------------------------
+enable
+configure terminal
+spanning-tree vlan 39 priority 4096
+interface fastEthernet0/1
+ switchport trunk allowed vlan 39,99
+ exit
+interface range fastEthernet0/2 - 4
+ switchport mode access
+ switchport access vlan 39
+ spanning-tree portfast
+ no shutdown
+ exit
+interface range fastEthernet0/5 - 24
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+ exit
+interface range gigabitEthernet0/1 - 2
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+ exit
+end
+write memory
