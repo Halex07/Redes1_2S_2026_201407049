@@ -1,0 +1,62 @@
+! ======================================================
+! SW-Z5  (2960-24TT, VTP SERVIDOR, root bridge VLAN 59 (Ramblas de Cayala))
+! Carne 201407949 | VTP dominio 201407949 | EtherChannel: PAgP
+! PUERTOS USADOS:
+!   Fa0/1    -> CORE-A Fa0/4
+!   Fa0/2    -> CORE-B Fa0/3
+!   Fa0/3-5  -> PC1-Z5, PC2-Z5, Laptop0-Z5
+! ======================================================
+
+!------------------------------------------------------
+! FASE 1 
+!------------------------------------------------------
+enable
+configure terminal
+hostname SW-Z5
+no ip domain-lookup
+vtp version 2
+vtp domain 201407949
+vtp password Cayala2026
+vtp mode server
+spanning-tree mode rapid-pvst
+interface fastEthernet0/1
+ switchport mode trunk
+ switchport trunk native vlan 99
+ exit
+interface fastEthernet0/2
+ switchport mode trunk
+ switchport trunk native vlan 99
+ exit
+end
+write memory
+
+!------------------------------------------------------
+! FASE 3 - (show vlan brief)
+!------------------------------------------------------
+enable
+configure terminal
+spanning-tree vlan 59 priority 4096
+interface fastEthernet0/1
+ switchport trunk allowed vlan 59,99
+ exit
+interface fastEthernet0/2
+ switchport trunk allowed vlan 59,99
+ exit
+interface range fastEthernet0/3 - 5
+ switchport mode access
+ switchport access vlan 59
+ spanning-tree portfast
+ no shutdown
+ exit
+interface range fastEthernet0/6 - 24
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+ exit
+interface range gigabitEthernet0/1 - 2
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+ exit
+end
+write memory

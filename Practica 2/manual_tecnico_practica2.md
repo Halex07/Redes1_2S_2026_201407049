@@ -120,9 +120,9 @@ La jerarquía es: **2 switches core (3560)** → **5 switches principales de zon
 | 7 | CORE-B Fa0/3 ↔ SW-Z5 Fa0/2 | Troncal | Segundo camino de Ramblas hacia el core B. |
 | 8 | CORE-A Fa0/5 ↔ SW-Z3 Fa0/1 | Troncal | Cardales: criticidad media-baja y 12 hosts; un enlace es suficiente. |
 | 9 | CORE-B Fa0/4 ↔ SW-Z2 Fa0/1 | Troncal | Distrito Moda: 28 hosts y criticidad media; un enlace es suficiente. |
-| 10-12 | SW-Z1 Fa0/4, Fa0/5, Fa0/6 ↔ SW-Z1-A, B, C Gi0/1 | Troncal | Paseo Cayalá reparte sus 60 hosts en 3 switches de acceso (24 puertos cada uno). |
-| 13-14 | SW-Z2 Fa0/2, Fa0/3 ↔ SW-Z2-A, B Gi0/1 | Troncal | Distrito Moda reparte 28 hosts en 2 switches de acceso. |
-| 15-17 | SW-Z4 Fa0/3, Fa0/4, Fa0/5 ↔ SW-Z4-A, B, C Gi0/1 | Troncal | Distrito Empresarial reparte 50 hosts en 3 switches de acceso. |
+| 10-12 | SW-Z1 Fa0/4, Fa0/5, Fa0/6 ↔ SW-Z1-A, B, C Fa0/1 | Troncal | Paseo Cayalá reparte sus 60 hosts en 3 switches de acceso (24 puertos cada uno). |
+| 13-14 | SW-Z2 Fa0/2, Fa0/3 ↔ SW-Z2-A, B Fa0/1 | Troncal | Distrito Moda reparte 28 hosts en 2 switches de acceso. |
+| 15-17 | SW-Z4 Fa0/3, Fa0/4, Fa0/5 ↔ SW-Z4-A, B, C Fa0/1 | Troncal | Distrito Empresarial reparte 50 hosts en 3 switches de acceso. |
 
 **Total:** 19 cables entre switches (los enlaces 1 y 2 usan 2 cables cada uno) y 22 cables hacia hosts.
 
@@ -191,11 +191,11 @@ Se aplica TIA/EIA-568B.
 | PC1-Z1-C / PC2-Z1-C | 10.19.0.15 / .16 | 255.255.255.192 | 10.19.0.1 |
 | PC1-Z2-A / PC2-Z2-A | 10.29.0.11 / .12 | 255.255.255.224 | 10.29.0.1 |
 | PC1-Z2-B / PC2-Z2-B | 10.29.0.13 / .14 | 255.255.255.224 | 10.29.0.1 |
-| PC1-Z3 / PC2-Z3 / Laptop1 | 10.39.0.11 / .12 / .13 | 255.255.255.240 | 10.39.0.1 |
+| PC1-Z3 / PC2-Z3 / Laptop0-Z3 | 10.39.0.11 / .12 / .13 | 255.255.255.240 | 10.39.0.1 |
 | PC1-Z4-A / PC2-Z4-A | 10.49.0.11 / .12 | 255.255.255.192 | 10.49.0.1 |
 | PC1-Z4-B / PC2-Z4-B | 10.49.0.13 / .14 | 255.255.255.192 | 10.49.0.1 |
 | PC1-Z4-C / PC2-Z4-C | 10.49.0.15 / .16 | 255.255.255.192 | 10.49.0.1 |
-| PC1-Z5 / PC2-Z5 / Laptop0 | 10.59.0.11 / .12 / .13 | 255.255.255.240 | 10.59.0.1 |
+| PC1-Z5 / PC2-Z5 / Laptop0-Z5 | 10.59.0.11 / .12 / .13 | 255.255.255.240 | 10.59.0.1 |
 
 ### 5.4 Enrutamiento entre VLANs
 
@@ -346,7 +346,7 @@ Los scripts completos están en `scripts_cli/` y los comandos exactos se incluye
 ### 9.5 SW-Z3 (2960-24TT)
 
 - **Rol:** VTP servidor. Root bridge de la VLAN 39 (4096). Hosts conectados directamente (Fa0/2-4).
-- **Puertos:** Fa0/1 → CORE-A · Fa0/2-4 → PC1-Z3, PC2-Z3, Laptop1
+- **Puertos:** Fa0/1 → CORE-A · Fa0/2-4 → PC1-Z3, PC2-Z3, Laptop0-Z3
 - **Script:** [`scripts_cli/05_SW-Z3.txt`](scripts_cli/05_SW-Z3.txt)
 
 **Fase 1** – `05_SW-Z3-fase 1.png`
@@ -374,7 +374,7 @@ Los scripts completos están en `scripts_cli/` y los comandos exactos se incluye
 ### 9.7 SW-Z5 (2960-24TT)
 
 - **Rol:** VTP servidor. Root bridge de la VLAN 59 (4096). Hosts conectados directamente (Fa0/3-5).
-- **Puertos:** Fa0/1 → CORE-A · Fa0/2 → CORE-B · Fa0/3-5 → PC1-Z5, PC2-Z5, Laptop0
+- **Puertos:** Fa0/1 → CORE-A · Fa0/2 → CORE-B · Fa0/3-5 → PC1-Z5, PC2-Z5, Laptop0-Z5
 - **Script:** [`scripts_cli/07_SW-Z5.txt`](scripts_cli/07_SW-Z5.txt)
 
 **Fase 1** – `07_SW-Z5-fase 1.png`
@@ -388,7 +388,7 @@ Los scripts completos están en `scripts_cli/` y los comandos exactos se incluye
 ### 9.8 SW-Z1-A (2960-24TT)
 
 - **Rol:** VTP cliente. Acceso VLAN 19.
-- **Puertos:** Gi0/1 → SW-Z1 Fa0/4 · Fa0/1-2 → PCs
+- **Puertos:** Fa0/1 → SW-Z1 Fa0/4 · Fa0/2-3 → PCs
 - **Script:** [`scripts_cli/08_SW-Z1-A.txt`](scripts_cli/08_SW-Z1-A.txt)
 
 **Fase 1** – `08_SW-Z1-A-fase 1.png`
@@ -402,7 +402,7 @@ Los scripts completos están en `scripts_cli/` y los comandos exactos se incluye
 ### 9.9 SW-Z1-B (2960-24TT)
 
 - **Rol:** VTP cliente. Acceso VLAN 19.
-- **Puertos:** Gi0/1 → SW-Z1 Fa0/5 · Fa0/1-2 → PCs
+- **Puertos:** Fa0/1 → SW-Z1 Fa0/5 · Fa0/2-3 → PCs
 - **Script:** [`scripts_cli/09_SW-Z1-B.txt`](scripts_cli/09_SW-Z1-B.txt)
 
 **Fase 1** – `09_SW-Z1-B-fase 1.png`
@@ -416,7 +416,7 @@ Los scripts completos están en `scripts_cli/` y los comandos exactos se incluye
 ### 9.10 SW-Z1-C (2960-24TT)
 
 - **Rol:** VTP cliente. Acceso VLAN 19.
-- **Puertos:** Gi0/1 → SW-Z1 Fa0/6 · Fa0/1-2 → PCs
+- **Puertos:** Fa0/1 → SW-Z1 Fa0/6 · Fa0/2-3 → PCs
 - **Script:** [`scripts_cli/10_SW-Z1-C.txt`](scripts_cli/10_SW-Z1-C.txt)
 
 **Fase 1** – `10_SW-Z1-C-fase 1.png`
@@ -430,7 +430,7 @@ Los scripts completos están en `scripts_cli/` y los comandos exactos se incluye
 ### 9.11 SW-Z2-A (2960-24TT)
 
 - **Rol:** VTP cliente. Acceso VLAN 29.
-- **Puertos:** Gi0/1 → SW-Z2 Fa0/2 · Fa0/1-2 → PCs
+- **Puertos:** Fa0/1 → SW-Z2 Fa0/2 · Fa0/2-3 → PCs
 - **Script:** [`scripts_cli/11_SW-Z2-A.txt`](scripts_cli/11_SW-Z2-A.txt)
 
 **Fase 1** – `11_SW-Z2-A-fase 1.png`
@@ -444,7 +444,7 @@ Los scripts completos están en `scripts_cli/` y los comandos exactos se incluye
 ### 9.12 SW-Z2-B (2960-24TT)
 
 - **Rol:** VTP cliente. Acceso VLAN 29.
-- **Puertos:** Gi0/1 → SW-Z2 Fa0/3 · Fa0/1-2 → PCs
+- **Puertos:** Fa0/1 → SW-Z2 Fa0/3 · Fa0/2-3 → PCs
 - **Script:** [`scripts_cli/12_SW-Z2-B.txt`](scripts_cli/12_SW-Z2-B.txt)
 
 **Fase 1** – `12_SW-Z2-B-fase 1.png`
@@ -458,7 +458,7 @@ Los scripts completos están en `scripts_cli/` y los comandos exactos se incluye
 ### 9.13 SW-Z4-A (2960-24TT)
 
 - **Rol:** VTP cliente. Acceso VLAN 49.
-- **Puertos:** Gi0/1 → SW-Z4 Fa0/3 · Fa0/1-2 → PCs
+- **Puertos:** Fa0/1 → SW-Z4 Fa0/3 · Fa0/2-3 → PCs
 - **Script:** [`scripts_cli/13_SW-Z4-A.txt`](scripts_cli/13_SW-Z4-A.txt)
 
 **Fase 1** – `13_SW-Z4-A-fase 1.png`
@@ -472,7 +472,7 @@ Los scripts completos están en `scripts_cli/` y los comandos exactos se incluye
 ### 9.14 SW-Z4-B (2960-24TT)
 
 - **Rol:** VTP cliente. Acceso VLAN 49.
-- **Puertos:** Gi0/1 → SW-Z4 Fa0/4 · Fa0/1-2 → PCs
+- **Puertos:** Fa0/1 → SW-Z4 Fa0/4 · Fa0/2-3 → PCs
 - **Script:** [`scripts_cli/14_SW-Z4-B.txt`](scripts_cli/14_SW-Z4-B.txt)
 
 **Fase 1** – `14_SW-Z4-B-fase 1.png`
@@ -486,7 +486,7 @@ Los scripts completos están en `scripts_cli/` y los comandos exactos se incluye
 ### 9.15 SW-Z4-C (2960-24TT)
 
 - **Rol:** VTP cliente. Acceso VLAN 49.
-- **Puertos:** Gi0/1 → SW-Z4 Fa0/5 · Fa0/1-2 → PCs
+- **Puertos:** Fa0/1 → SW-Z4 Fa0/5 · Fa0/2-3 → PCs
 - **Script:** [`scripts_cli/15_SW-Z4-C.txt`](scripts_cli/15_SW-Z4-C.txt)
 
 **Fase 1** – `15_SW-Z4-C-fase 1.png`
@@ -607,7 +607,6 @@ Se desconectó un enlace de una zona con doble uplink y se comprobó que la cone
 
 ## 12. Presupuesto estimado en quetzales
 
-> **Nota:** La implementación del laboratorio se realizó en Cisco Packet Tracer, sin costo de hardware. Este presupuesto estima el costo de **implementar físicamente** la red. Los precios son **referenciales** de mercado y deben validarse con cotizaciones de proveedores.
 
 | # | Concepto | Unidad | Cantidad | Precio unitario | Subtotal |
 |---|---|---|---|---|---|
@@ -649,7 +648,7 @@ Redes1_2S2026/
         ├── 00_LEEME_orden.txt
         ├── 01_CORE-A.txt ... 15_SW-Z4-C.txt
         ├── PCs_direccionamiento.txt
-        └── VERIFICACION.txt
+        
 ```
 
 **Pasos para reproducir**
@@ -673,8 +672,9 @@ Redes1_2S2026/
 
 ---
 
-## 15. Anexo: lista de imágenes 
+## 15. Anexo: lista de imágenes
 
+Guardar todas en `imagenes/` con **exactamente** estos nombres.
 
 - [ ] `00_topologia.png`
 - [ ] `01_CORE-A-fase 1.png`

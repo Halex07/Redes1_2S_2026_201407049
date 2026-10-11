@@ -1,0 +1,53 @@
+! ======================================================
+! SW-Z4-B  (2960-24TT, VTP cliente, acceso VLAN 49)
+! Carne 201407949 | VTP dominio 201407949 | EtherChannel: PAgP
+! PUERTOS USADOS:
+!   Fa0/1    -> SW-Z4 Fa0/4
+!   Fa0/2-3  -> 2 PCs de la zona
+! ======================================================
+
+!------------------------------------------------------
+! FASE 1 
+!------------------------------------------------------
+enable
+configure terminal
+hostname SW-Z4-B
+no ip domain-lookup
+vtp version 2
+vtp domain 201407949
+vtp password Cayala2026
+vtp mode client
+spanning-tree mode rapid-pvst
+interface fastEthernet0/1
+ switchport mode trunk
+ switchport trunk native vlan 99
+ exit
+end
+write memory
+
+!------------------------------------------------------
+! FASE 3 - (show vlan brief)
+!------------------------------------------------------
+enable
+configure terminal
+interface fastEthernet0/1
+ switchport trunk allowed vlan 49,99
+ exit
+interface range fastEthernet0/2 - 3
+ switchport mode access
+ switchport access vlan 49
+ spanning-tree portfast
+ no shutdown
+ exit
+interface range fastEthernet0/4 - 24
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+ exit
+interface range gigabitEthernet0/1 - 2
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+ exit
+end
+write memory

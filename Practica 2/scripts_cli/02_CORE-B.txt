@@ -1,0 +1,83 @@
+! ======================================================
+! CORE-B  (3560-24PS, VTP cliente, camino redundante L2 (sin SVIs))
+! Carne 201407949 | VTP dominio 201407949 | EtherChannel: PAgP
+! PUERTOS USADOS:
+!   Gi0/1-2  -> Po1 PAgP a CORE-A Gi0/1-2
+!   Fa0/1    -> SW-Z1 Fa0/3
+!   Fa0/2    -> SW-Z4 Fa0/2
+!   Fa0/3    -> SW-Z5 Fa0/2
+!   Fa0/4    -> SW-Z2 Fa0/1
+! ======================================================
+
+!------------------------------------------------------
+! FASE 1 
+!------------------------------------------------------
+enable
+configure terminal
+hostname CORE-B
+no ip domain-lookup
+vtp version 2
+vtp domain 201407949
+vtp password Cayala2026
+vtp mode client
+spanning-tree mode rapid-pvst
+interface range gigabitEthernet0/1 - 2
+ channel-protocol pagp
+ channel-group 1 mode desirable
+ exit
+interface port-channel 1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 99
+ exit
+interface fastEthernet0/1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 99
+ exit
+interface fastEthernet0/2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 99
+ exit
+interface fastEthernet0/3
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 99
+ exit
+interface fastEthernet0/4
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 99
+ exit
+end
+write memory
+
+!------------------------------------------------------
+! FASE 3 
+!------------------------------------------------------
+enable
+configure terminal
+spanning-tree vlan 19,29,39,49,59 priority 12288
+interface port-channel 1
+ switchport trunk allowed vlan 19,29,39,49,59,99
+ exit
+interface fastEthernet0/1
+ switchport trunk allowed vlan 19,99
+ exit
+interface fastEthernet0/2
+ switchport trunk allowed vlan 49,99
+ exit
+interface fastEthernet0/3
+ switchport trunk allowed vlan 59,99
+ exit
+interface fastEthernet0/4
+ switchport trunk allowed vlan 29,99
+ exit
+interface range fastEthernet0/5 - 24
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+ exit
+end
+write memory
