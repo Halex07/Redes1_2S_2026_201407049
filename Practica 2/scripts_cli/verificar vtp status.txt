@@ -1,3 +1,0 @@
-show vtp status
-show etherchannel summary
-show interfaces trunk
