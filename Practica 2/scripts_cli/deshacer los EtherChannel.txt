@@ -1,0 +1,11 @@
+enable
+configure terminal
+interface range gigabitEthernet0/1 - 2
+ no channel-group 1
+ exit
+interface range fastEthernet0/1 - 2
+ no channel-group 2
+ exit
+no interface port-channel 1
+no interface port-channel 2
+end

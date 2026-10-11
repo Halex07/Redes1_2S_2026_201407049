@@ -1,0 +1,24 @@
+IPs DE LAS PCs - Configurar en cada PC: Desktop > IP Configuration > Static
+(Gateway = SVI en CORE-A)
+
+ZONA 1 - Paseo Cayala | VLAN 19 | Red 10.19.0.0/26 | Mascara 255.255.255.192 | GW 10.19.0.1
+  PC1-Z1-A  10.19.0.11      PC2-Z1-A  10.19.0.12
+  PC1-Z1-B  10.19.0.13      PC2-Z1-B  10.19.0.14
+  PC1-Z1-C  10.19.0.15      PC2-Z1-C  10.19.0.16
+
+ZONA 2 - Distrito Moda | VLAN 29 | Red 10.29.0.0/27 | Mascara 255.255.255.224 | GW 10.29.0.1
+  PC1-Z2-A  10.29.0.11      PC2-Z2-A  10.29.0.12
+  PC1-Z2-B  10.29.0.13      PC2-Z2-B  10.29.0.14
+
+ZONA 3 - Cardales de Cayala | VLAN 39 | Red 10.39.0.0/28 | Mascara 255.255.255.240 | GW 10.39.0.1
+  PC1-Z3    10.39.0.11      PC2-Z3    10.39.0.12      Laptop0-Z3  10.39.0.13
+
+ZONA 4 - Distrito Empresarial | VLAN 49 | Red 10.49.0.0/26 | Mascara 255.255.255.192 | GW 10.49.0.1
+  PC1-Z4-A  10.49.0.11      PC2-Z4-A  10.49.0.12
+  PC1-Z4-B  10.49.0.13      PC2-Z4-B  10.49.0.14
+  PC1-Z4-C  10.49.0.15      PC2-Z4-C  10.49.0.16
+
+ZONA 5 - Ramblas de Cayala | VLAN 59 | Red 10.59.0.0/28 | Mascara 255.255.255.240 | GW 10.59.0.1
+  PC1-Z5    10.59.0.11      PC2-Z5    10.59.0.12      Laptop0-Z5  10.59.0.13
+
+Capacidad por subred (hosts utiles): /26 = 62 | /27 = 30 | /28 = 14

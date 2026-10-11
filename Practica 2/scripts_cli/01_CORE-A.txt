@@ -1,0 +1,113 @@
+! ======================================================
+! CORE-A  (3560-24PS, VTP cliente, gateway de todas las VLAN)
+! Carne 201407049 | VTP dominio 201407049 | EtherChannel: PAgP
+! PUERTOS USADOS:
+!   Gi0/1-2  -> Po1 PAgP a CORE-B Gi0/1-2
+!   Fa0/1-2  -> Po2 PAgP a SW-Z1 Fa0/1-2
+!   Fa0/3    -> SW-Z4 Fa0/1
+!   Fa0/4    -> SW-Z5 Fa0/1
+!   Fa0/5    -> SW-Z3 Fa0/1
+! ======================================================
+
+!------------------------------------------------------
+! FASE 1 - (base, VTP, STP, EtherChannel, trunks)
+!------------------------------------------------------
+enable
+configure terminal
+hostname CORE-A
+no ip domain-lookup
+vtp version 2
+vtp domain 201407049
+vtp password Cayala2026
+vtp mode client
+spanning-tree mode rapid-pvst
+interface range gigabitEthernet0/1 - 2
+ channel-protocol pagp
+ channel-group 1 mode desirable
+ exit
+interface port-channel 1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 99
+ exit
+interface range fastEthernet0/1 - 2
+ channel-protocol pagp
+ channel-group 2 mode desirable
+ exit
+interface port-channel 2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 99
+ exit
+interface fastEthernet0/3
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 99
+ exit
+interface fastEthernet0/4
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 99
+ exit
+interface fastEthernet0/5
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 99
+ exit
+end
+write memory
+
+!------------------------------------------------------
+! FASE 3 -  (show vlan brief)
+!------------------------------------------------------
+enable
+configure terminal
+ip routing
+spanning-tree vlan 19,29,39,49,59 priority 8192
+interface port-channel 1
+ switchport trunk allowed vlan 19,29,39,49,59,99
+ exit
+interface port-channel 2
+ switchport trunk allowed vlan 19,99
+ exit
+interface fastEthernet0/3
+ switchport trunk allowed vlan 49,99
+ exit
+interface fastEthernet0/4
+ switchport trunk allowed vlan 59,99
+ exit
+interface fastEthernet0/5
+ switchport trunk allowed vlan 39,99
+ exit
+interface vlan 19
+ description GW_PASEO_CAYALA
+ ip address 10.19.0.1 255.255.255.192
+ no shutdown
+ exit
+interface vlan 29
+ description GW_DISTRITO_MODA
+ ip address 10.29.0.1 255.255.255.224
+ no shutdown
+ exit
+interface vlan 39
+ description GW_CARDALES
+ ip address 10.39.0.1 255.255.255.240
+ no shutdown
+ exit
+interface vlan 49
+ description GW_DISTRITO_EMPRESARIAL
+ ip address 10.49.0.1 255.255.255.192
+ no shutdown
+ exit
+interface vlan 59
+ description GW_RAMBLAS
+ ip address 10.59.0.1 255.255.255.240
+ no shutdown
+ exit
+interface range fastEthernet0/6 - 24
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+ exit
+end
+write memory
