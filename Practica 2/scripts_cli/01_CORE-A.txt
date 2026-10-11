@@ -1,6 +1,6 @@
 ! ======================================================
 ! CORE-A  (3560-24PS, VTP cliente, gateway de todas las VLAN)
-! Carne 201407949 | VTP dominio 201407949 | EtherChannel: PAgP
+! Carne 201407049 | VTP dominio 201407049 | EtherChannel: PAgP
 ! PUERTOS USADOS:
 !   Gi0/1-2  -> Po1 PAgP a CORE-B Gi0/1-2
 !   Fa0/1-2  -> Po2 PAgP a SW-Z1 Fa0/1-2
@@ -17,7 +17,7 @@ configure terminal
 hostname CORE-A
 no ip domain-lookup
 vtp version 2
-vtp domain 201407949
+vtp domain 201407049
 vtp password Cayala2026
 vtp mode client
 spanning-tree mode rapid-pvst

@@ -1,6 +1,6 @@
 ! ======================================================
 ! SW-Z2-B  (2960-24TT, VTP cliente, acceso VLAN 29)
-! Carne 201407949 | VTP dominio 201407949 | EtherChannel: PAgP
+! Carne 201407049 | VTP dominio 201407049 | EtherChannel: PAgP
 ! PUERTOS USADOS:
 !   Fa0/1    -> SW-Z2 Fa0/3
 !   Fa0/2-3  -> 2 PCs de la zona
@@ -14,7 +14,7 @@ configure terminal
 hostname SW-Z2-B
 no ip domain-lookup
 vtp version 2
-vtp domain 201407949
+vtp domain 201407049
 vtp password Cayala2026
 vtp mode client
 spanning-tree mode rapid-pvst

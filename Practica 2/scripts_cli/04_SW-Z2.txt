@@ -1,6 +1,6 @@
 ! ======================================================
 ! SW-Z2  (2960-24TT, VTP SERVIDOR, root bridge VLAN 29 (Distrito Moda))
-! Carne 201407949 | VTP dominio 201407949 | EtherChannel: PAgP
+! Carne 201407049 | VTP dominio 201407049 | EtherChannel: PAgP
 ! PUERTOS USADOS:
 !   Fa0/1    -> CORE-B Fa0/4
 !   Fa0/2    -> SW-Z2-A Gi0/1
@@ -15,7 +15,7 @@ configure terminal
 hostname SW-Z2
 no ip domain-lookup
 vtp version 2
-vtp domain 201407949
+vtp domain 201407049
 vtp password Cayala2026
 vtp mode server
 spanning-tree mode rapid-pvst

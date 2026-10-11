@@ -242,7 +242,7 @@ El estándar **TIA/EIA-606** (Administración de Infraestructura de Telecomunica
 **¿Por qué en un entorno real se preferiría el estándar completo?** Porque en un data center o cuarto de telecomunicaciones en producción, con cientos o miles de puntos y múltiples técnicos interviniendo a lo largo de los años, un esquema simplificado como el de esta práctica se vuelve ambiguo y propenso a errores de mantenimiento (cables mal identificados, duplicados o sin dueño claro). El estándar TIA/EIA-606 evita esa ambigüedad al forzar trazabilidad completa y única de cada elemento de la infraestructura.
 
 ---
-
+.
 ## 15. Flujo de conexión end-to-end
 
 Ejemplo: una laptop del departamento de Backend accede al servidor de Diseño e Innovación.

@@ -1,6 +1,6 @@
 ! ======================================================
 ! CORE-B  (3560-24PS, VTP cliente, camino redundante L2 (sin SVIs))
-! Carne 201407949 | VTP dominio 201407949 | EtherChannel: PAgP
+! Carne 201407049 | VTP dominio 201407049 | EtherChannel: PAgP
 ! PUERTOS USADOS:
 !   Gi0/1-2  -> Po1 PAgP a CORE-A Gi0/1-2
 !   Fa0/1    -> SW-Z1 Fa0/3
@@ -17,7 +17,7 @@ configure terminal
 hostname CORE-B
 no ip domain-lookup
 vtp version 2
-vtp domain 201407949
+vtp domain 201407049
 vtp password Cayala2026
 vtp mode client
 spanning-tree mode rapid-pvst

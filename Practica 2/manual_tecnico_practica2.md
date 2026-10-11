@@ -5,7 +5,7 @@
 |---|---|
 | **Curso** | Redes de Computadoras 1 – Segundo Semestre 2026 |
 | **Estudiante** | Henry García |
-| **Carné** | 201407949 |
+| **Carné** | 201407049 |
 | **Herramienta** | Cisco Packet Tracer (switches configurados únicamente por CLI) |
 | **Repositorio** | `Redes1_2S2026` → carpeta `Practica2` |
 
@@ -53,7 +53,7 @@ La empresa administradora de Ciudad Cayalá requiere modernizar su red para inte
 |---|---|---|
 | Último dígito | – | **9** (impar) |
 | IDs de VLAN de zona | `1X`, `2X`, `3X`, `4X`, `5X` | **19, 29, 39, 49, 59** |
-| Dominio VTP | Número de carné | **201407949** |
+| Dominio VTP | Número de carné | **201407049** |
 | Contraseña VTP | Libre | `Cayala2026` |
 | Protocolo EtherChannel | Par → LACP, impar → PAgP | **PAgP** (`mode desirable`) |
 | VLAN nativa | Fija | **99** |
@@ -231,7 +231,7 @@ Los puertos sin uso están en modo acceso, asignados a la **VLAN 999** y en `shu
 | Parámetro | Valor |
 |---|---|
 | Versión | 2 |
-| Dominio | `201407949` |
+| Dominio | `201407049` |
 | Contraseña | `Cayala2026` |
 
 | Switch | Modo VTP |
@@ -503,7 +503,7 @@ Los scripts completos están en `scripts_cli/` y los comandos exactos se incluye
 
 ### 10.1 Comandos de verificación
 
-**`show vtp status`** – esperado: Dominio `201407949`, versión 2, modo servidor/cliente
+**`show vtp status`** – esperado: Dominio `201407049`, versión 2, modo servidor/cliente
 
 ![16_show-vtp-status](imagenes/16_show-vtp-status.png)
 
@@ -599,7 +599,7 @@ Se desconectó un enlace de una zona con doble uplink y se comprobó que la cone
 | 2 | `show etherchannel summary` mostraba **LACP** en lugar de PAgP | Quedaba configuración de un script de ejemplo con `channel-group mode active` | Se eliminaron los channel-group y port-channel y se reconfiguraron con `channel-protocol pagp` y `mode desirable`, como corresponde a un carné impar |
 | 3 | Aparecían VLANs 10, 20, 30, 40 y 50 en la base de datos | Configuración heredada del script de ejemplo | Al crear las VLANs 19-59 en SW-Z1 con un número de revisión mayor, VTP reemplazó la base de datos de los clientes. Se verificó con `show vlan brief` |
 | 4 | Comandos incompletos al pegar el script (`xit`, `end` desconocido) | La consola de Packet Tracer pierde caracteres con pegados largos | Se pegaron los scripts en bloques cortos y se verificó con `show running-config` |
-| 5 | Los IDs de VLAN estaban como 10-50 | Se habían calculado con el último dígito 0 | Se corrigieron a 19, 29, 39, 49 y 59 según el carné 201407949 |
+| 5 | Los IDs de VLAN estaban como 10-50 | Se habían calculado con el último dígito 0 | Se corrigieron a 19, 29, 39, 49 y 59 según el carné 201407049 |
 | 6 | El servidor VTP estaba en el core | Diseño inicial distinto al requerido | Se movió el rol de servidor a los switches principales de zona y los cores pasaron a cliente |
 | 7 | Enlaces con triángulo rojo hacia las laptops | El puerto aún negociaba con STP o el cable no era el adecuado | Se esperó la convergencia de Rapid PVST+ y se verificó el tipo de cable (directo) y que el puerto no estuviera en `shutdown` |
 
